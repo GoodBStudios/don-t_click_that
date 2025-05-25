@@ -6,17 +6,20 @@
   <title>Don't Press That - Oficjalna Strona Gry</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #0f0f0f, #1f1f1f);
+      font-family: 'Roboto Condensed', sans-serif;
+      background: linear-gradient(135deg, #0a0a0a, #1a1a1a);
       color: #f1f1f1;
+      margin: 0;
+      padding: 0;
     }
     header {
       padding: 100px 0;
       text-align: center;
       background: #111;
-      background-image: url(tlo.png);
+      background-image: url('https://i.imgur.com/3JcBvSN.png');
       background-size: cover;
       background-position: center;
       position: relative;
@@ -25,62 +28,64 @@
       content: "";
       position: absolute;
       top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.6);
+      background: rgba(0,0,0,0.75);
     }
     header h1, header p {
       position: relative;
       z-index: 1;
     }
     header h1 {
-      font-size: 4rem;
-      color: #f44336;
-      text-shadow: 0 0 10px #f44336aa;
+      font-size: 4.5rem;
+      color: #ff2c2c;
+      text-shadow: 0 0 20px #ff2c2c, 0 0 40px #990000;
+      font-weight: 700;
+      letter-spacing: 1px;
     }
     header p {
-      font-size: 1.3rem;
+      font-size: 1.5rem;
       font-style: italic;
-      color: #ddd;
+      color: #ccc;
     }
     nav.navbar {
       background-color: #1b1b1b;
+      font-weight: 500;
     }
     .nav-link.active, .nav-link:hover {
-      color: #f44336 !important;
+      color: #ff2c2c !important;
     }
     section {
-      padding: 60px 20px;
+      padding: 80px 20px;
+      max-width: 900px;
+      margin: 0 auto;
     }
     h2 {
-      color: #f44336;
-      border-bottom: 2px solid #f44336;
+      color: #ff2c2c;
+      border-bottom: 2px solid #ff2c2c;
       padding-bottom: 10px;
-      margin-bottom: 30px;
+      margin-bottom: 40px;
+      font-weight: 700;
     }
-    .steam-download {
-      display: inline-flex;
-      align-items: center;
-      gap: 1rem;
-      padding: 1.2rem 2.5rem;
-      font-size: 1.25rem;
-      background-color: #1b2838;
+    .download-btn {
+      background: #ff2c2c;
       color: #fff;
-      text-decoration: none;
+      padding: 20px 40px;
       border-radius: 12px;
-      transition: background-color 0.3s ease;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+      display: inline-block;
+      text-decoration: none;
+      font-size: 1.5rem;
+      font-weight: bold;
+      box-shadow: 0 0 20px #ff2c2c80;
+      transition: background 0.3s, transform 0.2s;
     }
-    .steam-download:hover {
-      background-color: #171a21;
-    }
-    .steam-logo {
-      width: 32px;
-      height: 32px;
+    .download-btn:hover {
+      background: #c80000;
+      transform: scale(1.05);
     }
     #gallery img {
       width: 100%;
       border-radius: 10px;
       margin-bottom: 20px;
-      box-shadow: 0 0 10px #f4433680;
+      box-shadow: 0 0 10px #ff2c2c80;
     }
     .creator-card {
       background: #2a2a2a;
@@ -130,20 +135,17 @@
       </p>
     </section>
 
-    <section id="download">
+    <section id="download" class="text-center">
       <h2>Pobierz grę</h2>
-      <a href="https://store.steampowered.com/app/ID_Twojej_Gry" class="steam-download" target="_blank" rel="noopener">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/8/83/Steam_icon_logo.svg" alt="Steam logo" class="steam-logo" />
-        <span>Get it on Steam</span>
-      </a>
+      <a href="https://store.steampowered.com/app/ID_Twojej_Gry" class="download-btn"><i class="fab fa-steam"></i> Zagraj na Steam</a>
     </section>
 
     <section id="gallery">
       <h2>Galeria</h2>
       <div class="row">
-        <div class="col-md-4"><img src="laboratorium.png" alt="Laboratorium" /></div>
-        <div class="col-md-4"><img src="przycisk.png" alt="Czerwony Przycisk" /></div>
-        <div class="col-md-4"><img src="Postac.png" alt="Meta Wiadomości" /></div>
+        <div class="col-md-4"><img src="https://i.imgur.com/3JcBvSN.png" alt="Laboratorium" /></div>
+        <div class="col-md-4"><img src="https://i.imgur.com/yt9fqBP.png" alt="Czerwony Przycisk" /></div>
+        <div class="col-md-4"><img src="https://i.imgur.com/NbKlWjR.png" alt="Meta Wiadomości" /></div>
       </div>
     </section>
 
