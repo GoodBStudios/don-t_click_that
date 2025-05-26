@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Don't Press That</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nosifer&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+  <link href="https://unpkg.com/aos@next/dist/aos.css" rel="stylesheet">
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      font-family: 'JetBrains Mono', monospace;
+      background-color: #1e1e1e;
+      color: #f1f1f1;
+    }
+    .nosifer {
+      font-family: 'Nosifer', cursive;
+    }
+    .glitch {
+      position: relative;
+      color: #dc2626; /* mocna czerwień Tailwinda */
+      animation: flicker 2s infinite;
+    }
+    .glitch::before,
+    .glitch::after {
+      content: attr(data-text);
+      position: absolute;
+      left: 0;
+      width: 100%;
+      overflow: hidden;
+    }
+    .glitch::before {
+      animation: glitchTop 0.5s infinite linear alternate-reverse;
+      color: #00ffff;
+      top: -2px;
+    }
+    .glitch::after {
+      animation: glitchBottom 0.5s infinite linear alternate-reverse;
+      color: #ff0000;
+      top: 2px;
+    }
+    @keyframes glitchTop {
+      0% { clip: rect(0, 9999px, 0, 0); transform: translateX(-2px); }
+      25% { clip: rect(0, 9999px, 5px, 0); transform: translateX(2px); }
+      50% { clip: rect(0, 9999px, 0, 0); transform: translateX(-2px); }
+      75% { clip: rect(0, 9999px, 3px, 0); transform: translateX(2px); }
+      100% { clip: rect(0, 9999px, 0, 0); transform: translateX(0); }
+    }
+    @keyframes glitchBottom {
+      0% { clip: rect(0, 9999px, 0, 0); transform: translateX(2px); }
+      25% { clip: rect(5px, 9999px, 9999px, 0); transform: translateX(-2px); }
+      50% { clip: rect(0, 9999px, 0, 0); transform: translateX(2px); }
+      75% { clip: rect(3px, 9999px, 9999px, 0); transform: translateX(-2px); }
+      100% { clip: rect(0, 9999px, 0, 0); transform: translateX(0); }
+    }
+    @keyframes flicker {
+      0%, 100% { opacity: 1; }
+      45% { opacity: 0.7; }
+      48% { opacity: 0.1; }
+      52% { opacity: 0.8; }
+      60% { opacity: 0.4; }
+      65% { opacity: 1; }
+    }
+  </style>
+</head>
+
+<body class="overflow-x-hidden">
+  <!-- Header -->
+  <header class="relative bg-black py-6 px-8 flex justify-between items-center z-50">
+    <h1 class="text-3xl nosifer glitch" data-text="Don't Press That">Don't Press That</h1>
+    <nav class="hidden md:flex space-x-8 text-sm">
+      <a href="#o-grze" class="hover:text-red-500 transition">O grze</a>
+      <a href="#zrzuty" class="hover:text-red-500 transition">Zrzuty ekranu</a>
+      <a href="#zakonczenia" class="hover:text-red-500 transition">Zakończenia</a>
+      <a href="#pobierz" class="hover:text-red-500 transition">Pobierz</a>
+      <a href="#spolecznosc" class="hover:text-red-500 transition">Społeczność</a>
+    </nav>
+  </header>
+
+<!-- ... pozostała część strony bez zmian ... -->
+
+  <!-- Hero Section -->
+  <section class="relative flex items-center justify-center h-screen bg-gradient-to-br from-gray-900 to-black text-center">
+    <div class="z-10" data-aos="fade-up">
+      <h2 class="text-5xl md:text-7xl text-white nosifer glitch mb-6" data-text="DON'T PRESS THAT">DON'T PRESS THAT</h2>
+      <p class="text-lg md:text-2xl mb-6">Eksperyment. Przycisk. Pokusa. Czy wytrzymasz?</p>
+      <a href="https://store.steampowered.com/app/123456/Dont_Press_That" target="_blank" class="inline-flex items-center px-6 py-3 bg-red-600 text-white rounded-lg text-lg hover:bg-red-700 transition">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/8/83/Steam_icon_logo.svg" class="w-6 h-6 mr-2 filter invert-[50%] sepia-[100%] saturate-[500%] hue-rotate-[330deg]" alt="Steam"> Zagraj na Steam
+      </a>
+    </div>
+    <div class="absolute inset-0 bg-no-repeat bg-cover opacity-10" style="background-image: url('your-glitch-bg.jpg');"></div>
+  </section>
+
+  <!-- O Grze -->
+  <section id="o-grze" class="py-20 px-8 max-w-4xl mx-auto" data-aos="fade-up">
+    <h3 class="text-3xl mb-6">O grze</h3>
+    <ul class="list-disc pl-6 space-y-3">
+      <li>Eksperyment psychologiczny w stylu SCP.</li>
+      <li>Tylko Ty, pokój i czerwony przycisk.</li>
+      <li>Naciśnij… lub nie. Obserwujemy.</li>
+    </ul>
+    <div class="mt-8">
+      <img src="guzik.png" alt="Naciskanie przycisku" class="rounded-lg shadow-lg mx-auto">
+    </div>
+  </section>
+
+  <!-- Zrzuty Ekranu -->
+  <section id="zrzuty" class="py-20 px-8 bg-gray-900" data-aos="fade-up">
+    <h3 class="text-3xl mb-8 text-center">Galeria</h3>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="relative group">
+        <img src="1.png" alt="Zrzut 1" class="rounded-lg transform group-hover:scale-105 transition">
+      </div>
+      <div class="relative group">
+        <img src="2.png" alt="Zrzut 2" class="rounded-lg transform group-hover:scale-105 transition">
+      </div>
+      <div class="relative group">
+        <img src="3.png" alt="Zrzut 3" class="rounded-lg transform group-hover:scale-105 transition">
+      </div>
+    </div>
+  </section>
+
+  <!-- Zakończenia -->
+  <section id="zakonczenia" class="py-20 px-8 max-w-5xl mx-auto" data-aos="fade-up">
+    <h3 class="text-3xl mb-8 text-center">Zakończenia</h3>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="p-6 bg-gray-800 rounded-lg shadow-xl transition duration-300 transform hover:scale-105">Game Over</div>
+      <div class="p-6 bg-gray-800 rounded-lg shadow-xl transition duration-300 transform hover:scale-105">Eksperyment zakończony</div>
+      <div class="p-6 bg-gray-800 rounded-lg shadow-xl transition duration-300 transform hover:scale-105">Zniszczenie</div>
+    </div>
+  </section>
+
+  <!-- Społeczność -->
+  <section id="spolecznosc" class="py-20 px-8 bg-gray-900" data-aos="fade-up">
+    <h3 class="text-3xl mb-8 text-center">Społeczność</h3>
+    <blockquote class="italic text-center max-w-2xl mx-auto mb-6">„Wytrzymałem 60 minut bez naciskania…”</blockquote>
+    <blockquote class="italic text-center max-w-2xl mx-auto mb-6">„Nie nacisnąłem i to się stało…”</blockquote>
+    <div class="flex flex-wrap justify-center gap-4 mt-6">
+
+<!-- yt -->            
+<iframe width="560" height="315"
+  src="https://www.youtube.com/embed/zLnpLSjn4vw"
+  title="YouTube video"
+  frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+  allowfullscreen>
+</iframe>
+
+      <iframe width="560" height="315"
+  src="https://www.youtube.com/embed/KZoipAb2fo4"
+  title="YouTube video"
+  frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+  allowfullscreen>
+</iframe>
+
+      <blockquote class="twitter-tweet">
+        <p lang="en" dir="ltr">Don’t press it. Just don’t. <a href="https://twitter.com/GoodB_Studios/status/1926923812433465825">March 5, 2025</a></p>
+      </blockquote>
+    </div>
+    <div class="text-center mt-6 text-sm text-gray-400">
+      #dontpressthat #redbutton #gbstudios
+    </div>
+  </section>
+
+  <!-- Stopka -->
+  <footer class="bg-black text-gray-500 py-12 px-8 text-sm text-center">
+    <div class="mb-4">
+      <a href="privacy-policy.html" class="mr-4 hover:text-white">Polityka prywatności</a> 
+      <a href="formularz.html" class="mr-4 hover:text-white">Kontakt</a>
+      <a href="https://www.youtube.com/@GoodB_Studios" class="hover:text-white">YouTube</a> · 
+      <a href="https://www.tiktok.com/@goodb_studios" class="hover:text-white">TikTok</a> · 
+      <a href="https://discord.gg/W62gZR5d3a" class="hover:text-white">Discord</a>
+    </div>
+    <div class="mb-2">good.b.studios@gmail.com</div>
+    <div class="mt-4">
+      <button class="text-red-600 text-xl nosifer glitch animate-pulse" data-text="DO NOT PRESS">DO NOT PRESS</button>
+    </div>
+  </footer>
+
+  <!-- Scripts for animations (AOS & Twitter) -->
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 1000,
+      once: true
+    });
+  </script>
+  <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</body>
+
+</html>
+
