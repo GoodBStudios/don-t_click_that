@@ -1,25 +1,27 @@
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $name = strip_tags(trim($_POST["name"]));
-    $email = filter_var(trim($_POST["email"]), FILTER_SANITIZE_EMAIL);
-    $message = strip_tags(trim($_POST["message"]));
+    $name = strip_tags(trim($_POST["name"] ?? ''));
+    $email = filter_var(trim($_POST["email"] ?? ''), FILTER_SANITIZE_EMAIL);
+    $message = strip_tags(trim($_POST["message"] ?? ''));
     $date = date("Y-m-d H:i:s");
 
-    $logEntry = "[$date] Imię: $name | E-mail: $email | Wiadomość: $message" . PHP_EOL;
+    if (empty($name) || empty($email) || empty($message)) {
+        http_response_code(400);
+        echo "Brak wymaganych pól.";
+        exit;
+    }
 
-    // Ścieżka do pliku (upewnij się, że ma prawa zapisu)
+    $logEntry = "[$date]\nImię: $name\nE-mail: $email\nWiadomość: $message\n\n";
     $filePath = __DIR__ . '/messages.txt';
 
-    if (!file_put_contents($filePath, $logEntry, FILE_APPEND | LOCK_EX)) {
-        error_log("❌ Błąd zapisu do pliku $filePath");
+    if (file_put_contents($filePath, $logEntry, FILE_APPEND | LOCK_EX) === false) {
         http_response_code(500);
-        echo "Błąd zapisu";
+        echo "Błąd zapisu do pliku.";
         exit;
     }
 
     echo "OK";
 } else {
-    error_log("⚠️ Próba użycia formularza bez POST");
     http_response_code(403);
     echo "Błąd przesyłania formularza.";
 }
