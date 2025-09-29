@@ -1,199 +1,123 @@
-<!DOCTYPE html>
-<html lang="pl">
-
+<!doctype html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Don't Press That</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Recover Together — Home</title>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Nosifer&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
-  <link href="https://unpkg.com/aos@next/dist/aos.css" rel="stylesheet">
-  <style>
-    html {
-      scroll-behavior: smooth;
-    }
-    body {
-      font-family: 'JetBrains Mono', monospace;
-      background-color: #1e1e1e;
-      color: #f1f1f1;
-    }
-    .nosifer {
-      font-family: 'Nosifer', cursive;
-    }
-    .glitch {
-      position: relative;
-      color: #dc2626; /* mocna czerwień Tailwinda */
-      animation: flicker 2s infinite;
-    }
-    .glitch::before,
-    .glitch::after {
-      content: attr(data-text);
-      position: absolute;
-      left: 0;
-      width: 100%;
-      overflow: hidden;
-    }
-    .glitch::before {
-      animation: glitchTop 0.5s infinite linear alternate-reverse;
-      color: #00ffff;
-      top: -2px;
-    }
-    .glitch::after {
-      animation: glitchBottom 0.5s infinite linear alternate-reverse;
-      color: #ff0000;
-      top: 2px;
-    }
-    @keyframes glitchTop {
-      0% { clip: rect(0, 9999px, 0, 0); transform: translateX(-2px); }
-      25% { clip: rect(0, 9999px, 5px, 0); transform: translateX(2px); }
-      50% { clip: rect(0, 9999px, 0, 0); transform: translateX(-2px); }
-      75% { clip: rect(0, 9999px, 3px, 0); transform: translateX(2px); }
-      100% { clip: rect(0, 9999px, 0, 0); transform: translateX(0); }
-    }
-    @keyframes glitchBottom {
-      0% { clip: rect(0, 9999px, 0, 0); transform: translateX(2px); }
-      25% { clip: rect(5px, 9999px, 9999px, 0); transform: translateX(-2px); }
-      50% { clip: rect(0, 9999px, 0, 0); transform: translateX(2px); }
-      75% { clip: rect(3px, 9999px, 9999px, 0); transform: translateX(-2px); }
-      100% { clip: rect(0, 9999px, 0, 0); transform: translateX(0); }
-    }
-    @keyframes flicker {
-      0%, 100% { opacity: 1; }
-      45% { opacity: 0.7; }
-      48% { opacity: 0.1; }
-      52% { opacity: 0.8; }
-      60% { opacity: 0.4; }
-      65% { opacity: 1; }
-    }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.min.css">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 </head>
+<body>
+  <header class="site-header">
+    <div class="brand">
+      <svg class="brand-mark" width="36" height="36" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#ef4444"/><stop offset="1" stop-color="#ff7b7b"/></linearGradient></defs><rect width="24" height="24" rx="6" fill="url(#g)"/><text x="12" y="16" font-size="10" font-weight="700" text-anchor="middle" fill="#071827">RT</text></svg>
+      <div class="brand-text"><span class="brand-strong">Recover</span>Together</div>
+    </div>
 
-<body class="overflow-x-hidden">
-  <!-- Header -->
-  <header class="relative bg-black py-6 px-8 flex justify-between items-center z-50">
-    <h1 class="text-3xl nosifer glitch" data-text="Don't Press That">Don't Press That</h1>
-    <nav class="hidden md:flex space-x-8 text-sm">
-      <a href="#o-grze" class="hover:text-red-500 transition">O grze</a>
-      <a href="#zrzuty" class="hover:text-red-500 transition">Zrzuty ekranu</a>
-      <a href="#zakonczenia" class="hover:text-red-500 transition">Zakończenia</a>
-      <a href="#pobierz" class="hover:text-red-500 transition">Pobierz</a>
-      <a href="#spolecznosc" class="hover:text-red-500 transition">Społeczność</a>
+    <nav class="nav" aria-label="Main">
+      <a href="index.html" class="nav-link active">Home</a>
+      <a href="resources.html" class="nav-link">Resources</a>
+      <a href="journal.html" class="nav-link">Journal</a>
+      <a href="about.html" class="nav-link">About</a>
+      <a href="settings.html" class="nav-link">Settings</a>
     </nav>
+
+    <div class="header-actions">
+      <button id="donateBtn" class="btn btn-primary">Donate</button>
+      <button id="themeToggle" class="icon-btn" title="Toggle theme">🌙</button>
+    </div>
   </header>
 
-<!-- ... pozostała część strony bez zmian ... -->
-
-  <!-- Hero Section -->
-  <section class="relative flex items-center justify-center h-screen bg-gradient-to-br from-gray-900 to-black text-center">
-    <div class="z-10" data-aos="fade-up">
-      <h2 class="text-5xl md:text-7xl text-white nosifer glitch mb-6" data-text="DON'T PRESS THAT">DON'T PRESS THAT</h2>
-      <p class="text-lg md:text-2xl mb-6">Eksperyment. Przycisk. Pokusa. Czy wytrzymasz?</p>
-      <a href="https://store.steampowered.com/app/123456/Dont_Press_That" target="_blank" class="inline-flex items-center px-6 py-3 bg-red-600 text-white rounded-lg text-lg hover:bg-red-700 transition">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/8/83/Steam_icon_logo.svg" class="w-6 h-6 mr-2 filter invert-[50%] sepia-[100%] saturate-[500%] hue-rotate-[330deg]" alt="Steam"> Zagraj na Steam
-      </a>
-    </div>
-    <div class="absolute inset-0 bg-no-repeat bg-cover opacity-10" style="background-image: url('your-glitch-bg.jpg');"></div>
-  </section>
-
-  <!-- O Grze -->
-  <section id="o-grze" class="py-20 px-8 max-w-4xl mx-auto" data-aos="fade-up">
-    <h3 class="text-3xl mb-6">O grze</h3>
-    <ul class="list-disc pl-6 space-y-3">
-      <li>Eksperyment psychologiczny w stylu SCP.</li>
-      <li>Tylko Ty, pokój i czerwony przycisk.</li>
-      <li>Naciśnij… lub nie. Obserwujemy.</li>
-    </ul>
-    <div class="mt-8">
-      <img src="guzik.png" alt="Naciskanie przycisku" class="rounded-lg shadow-lg mx-auto">
-    </div>
-  </section>
-
-  <!-- Zrzuty Ekranu -->
-  <section id="zrzuty" class="py-20 px-8 bg-gray-900" data-aos="fade-up">
-    <h3 class="text-3xl mb-8 text-center">Galeria</h3>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <div class="relative group">
-        <img src="1.png" alt="Zrzut 1" class="rounded-lg transform group-hover:scale-105 transition">
+  <main class="container">
+    <section class="hero card">
+      <div class="hero-left">
+        <h1>Small steps. Big change.</h1>
+        <p class="lead">Tools, tracking, and private-first options to help you overcome porn dependency. Lightweight, responsive, and beautiful.</p>
+        <div class="hero-actions">
+          <a href="journal.html" class="btn">Open Journal</a>
+          <a href="resources.html" class="btn btn-outline">Find Help</a>
+        </div>
       </div>
-      <div class="relative group">
-        <img src="2.png" alt="Zrzut 2" class="rounded-lg transform group-hover:scale-105 transition">
+      <div class="hero-right">
+        <div class="quote-card card-compact" id="quoteCard">
+          <svg class="quote-ico" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7.17 6A4.17 4.17 0 0 0 3 10.17v2.66A4.17 4.17 0 0 0 7.17 17h.66A4.17 4.17 0 0 0 12 12.83V10.17A4.17 4.17 0 0 0 7.83 6h-.66zM17.17 6A4.17 4.17 0 0 0 13 10.17v2.66A4.17 4.17 0 0 0 17.17 17h.66A4.17 4.17 0 0 0 22 12.83V10.17A4.17 4.17 0 0 0 17.83 6h-.66z"/></svg>
+          <div id="quote">Loading daily quote…</div>
+          <div class="quote-actions">
+            <button id="newQuote" class="btn btn-sm">New</button>
+            <button id="copyQuote" class="btn btn-sm btn-outline">Copy</button>
+          </div>
+        </div>
+
+        <div class="timer-card card-compact" aria-live="polite">
+          <div class="timer-label">Abstinence timer</div>
+          <div id="timer" class="timer">Not set</div>
+          <div class="timer-controls">
+            <input type="datetime-local" id="startDate" class="input-dt">
+            <button id="setStart" class="btn btn-sm">Set</button>
+            <button id="clearStart" class="btn btn-sm btn-outline">Clear</button>
+          </div>
+          <div id="milestones" class="muted small"></div>
+        </div>
       </div>
-      <div class="relative group">
-        <img src="3.png" alt="Zrzut 3" class="rounded-lg transform group-hover:scale-105 transition">
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Zakończenia -->
-  <section id="zakonczenia" class="py-20 px-8 max-w-5xl mx-auto" data-aos="fade-up">
-    <h3 class="text-3xl mb-8 text-center">Zakończenia</h3>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <div class="p-6 bg-gray-800 rounded-lg shadow-xl transition duration-300 transform hover:scale-105">Game Over</div>
-      <div class="p-6 bg-gray-800 rounded-lg shadow-xl transition duration-300 transform hover:scale-105">Eksperyment zakończony</div>
-      <div class="p-6 bg-gray-800 rounded-lg shadow-xl transition duration-300 transform hover:scale-105">Zniszczenie</div>
-    </div>
-  </section>
+    <section class="grid">
+      <article class="card">
+        <h2>Progress</h2>
+        <div id="recentLogs" class="muted">No journal entries yet.</div>
+        <div class="small muted">Entries are stored locally in your browser.</div>
+      </article>
 
-  <!-- Społeczność -->
-  <section id="spolecznosc" class="py-20 px-8 bg-gray-900" data-aos="fade-up">
-    <h3 class="text-3xl mb-8 text-center">Społeczność</h3>
-    <blockquote class="italic text-center max-w-2xl mx-auto mb-6">„Wytrzymałem 60 minut bez naciskania…”</blockquote>
-    <blockquote class="italic text-center max-w-2xl mx-auto mb-6">„Nie nacisnąłem i to się stało…”</blockquote>
-    <div class="flex flex-wrap justify-center gap-4 mt-6">
+      <article class="card">
+        <h2>Tips for urges</h2>
+        <ul class="tips">
+          <li>Delay urges — set a 5-minute timer and choose an alternative activity.</li>
+          <li>Use blockers, remove easy access to triggers, and change environment.</li>
+          <li>Contact an accountability partner or use a support forum.</li>
+        </ul>
+      </article>
 
-<!-- yt -->            
-<iframe width="560" height="315"
-  src="https://www.youtube.com/embed/zLnpLSjn4vw"
-  title="YouTube video"
-  frameborder="0"
-  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-  allowfullscreen>
-</iframe>
+      <article class="card">
+        <h2>Support the project</h2>
+        <p class="muted">Prefer a safe donation method — avoid exposing raw bank details publicly.</p>
+        <div class="donate-row">
+          <a id="paypalLink" class="btn btn-primary" href="#" target="_blank">PayPal</a>
+          <a id="kofiLink" class="btn" href="#" target="_blank">Ko-fi</a>
+          <button id="showIban" class="btn btn-outline">Show IBAN</button>
+        </div>
+        <div id="ibanArea" class="iban muted">No IBAN set</div>
+      </article>
+    </section>
 
-      <iframe width="560" height="315"
-  src="https://www.youtube.com/embed/KZoipAb2fo4"
-  title="YouTube video"
-  frameborder="0"
-  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-  allowfullscreen>
-</iframe>
+  </main>
 
-      <blockquote class="twitter-tweet">
-        <p lang="en" dir="ltr">Don’t press it. Just don’t. <a href="https://twitter.com/GoodB_Studios/status/1926923812433465825">March 5, 2025</a></p>
-      </blockquote>
-    </div>
-    <div class="text-center mt-6 text-sm text-gray-400">
-      #dontpressthat #redbutton #gbstudios
-    </div>
-  </section>
-
-  <!-- Stopka -->
-  <footer class="bg-black text-gray-500 py-12 px-8 text-sm text-center">
-    <div class="mb-4">
-      <a href="privacy-policy.html" class="mr-4 hover:text-white">Polityka prywatności</a> 
-      <a href="kontakt.html" class="mr-4 hover:text-white">Kontakt</a>
-      <a href="https://www.youtube.com/@GoodB_Studios" class="hover:text-white">YouTube</a> · 
-      <a href="https://www.tiktok.com/@goodb_studios" class="hover:text-white">TikTok</a> · 
-      <a href="https://discord.gg/W62gZR5d3a" class="hover:text-white">Discord</a>
-    </div>
-    <div class="mb-2">good.b.studios@gmail.com</div>
-    <div class="mt-4">
-      <button class="text-red-600 text-xl nosifer glitch animate-pulse" data-text="DO NOT PRESS">DO NOT PRESS</button>
-    </div>
+  <footer class="site-footer">
+    <div>Built local-first • Private by design</div>
+    <div class="small muted">This is a production-ready static build — optimized CSS, SVG icons, animations, and modular JS.</div>
   </footer>
 
-  <!-- Scripts for animations (AOS & Twitter) -->
-  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-  <script>
-    AOS.init({
-      duration: 1000,
-      once: true
-    });
-  </script>
-  <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+  <div id="donationModal" class="modal" aria-hidden="true">
+    <div class="modal-content card">
+      <button class="modal-close" id="closeModal" aria-label="Close">✕</button>
+      <h3>Support the creator</h3>
+      <p class="muted">Choose a safer donation method instead of posting IBAN publicly.</p>
+      <div class="donation-buttons">
+        <a id="paypalBtn" class="btn btn-primary" href="#" target="_blank">Donate with PayPal</a>
+        <a id="kofiBtn" class="btn" href="#" target="_blank">Buy me a coffee</a>
+      </div>
+      <div style="margin-top:12px">
+        <label>Or paste IBAN (stored locally):</label>
+        <input id="ibanInput" placeholder="GB29 NWBK 6016 1331 9268 19">
+        <div style="display:flex;gap:8px;margin-top:8px">
+          <button id="saveIban" class="btn">Save IBAN</button>
+          <button id="copyIban" class="btn btn-outline">Copy IBAN</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/app.min.js"></script>
 </body>
-
 </html>
-
