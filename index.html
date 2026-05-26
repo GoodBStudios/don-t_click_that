@@ -1,123 +1,1103 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="pl">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Recover Together — Home</title>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.min.css">
-  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Ewidencja DN PRO</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jspdf-autotable"></script>
+
+<style>
+:root{
+    --bg:#020617;
+    --card:#0f172a;
+    --card2:#111827;
+    --primary:#2563eb;
+    --primary-dark:#1d4ed8;
+    --success:#16a34a;
+    --danger:#dc2626;
+    --warning:#f59e0b;
+    --text:#f8fafc;
+    --muted:#94a3b8;
+    --border:#1e293b;
+    --radius:22px;
+    --shadow:0 10px 40px rgba(0,0,0,.35);
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Inter',sans-serif;
+    background:linear-gradient(180deg,#020617,#0f172a);
+    color:var(--text);
+    min-height:100vh;
+    padding:24px;
+}
+
+.container{
+    max-width:1500px;
+    margin:auto;
+}
+
+.header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
+h1{
+    font-size:2.2rem;
+    font-weight:800;
+}
+
+.card{
+    background:rgba(15,23,42,.92);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:24px;
+    box-shadow:var(--shadow);
+    margin-bottom:20px;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(340px,1fr));
+    gap:20px;
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:18px;
+    margin-bottom:20px;
+}
+
+.stat{
+    background:linear-gradient(145deg,#111827,#1e293b);
+    border-radius:18px;
+    padding:20px;
+    border:1px solid var(--border);
+}
+
+.stat h3{
+    color:var(--muted);
+    margin-bottom:10px;
+    font-size:.95rem;
+}
+
+.stat p{
+    font-size:1.8rem;
+    font-weight:800;
+}
+
+.toolbar{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+}
+
+button{
+    border:none;
+    border-radius:14px;
+    padding:13px 18px;
+    cursor:pointer;
+    font-weight:700;
+    transition:.2s;
+}
+
+button:hover{
+    transform:translateY(-2px);
+}
+
+.btn-primary{
+    background:var(--primary);
+    color:white;
+}
+
+.btn-primary:hover{
+    background:var(--primary-dark);
+}
+
+.btn-success{
+    background:var(--success);
+    color:white;
+}
+
+.btn-danger{
+    background:var(--danger);
+    color:white;
+}
+
+.btn-secondary{
+    background:#334155;
+    color:white;
+}
+
+form{
+    display:grid;
+    gap:15px;
+}
+
+label{
+    display:block;
+    margin-bottom:8px;
+    font-weight:600;
+}
+
+input,textarea,select{
+    width:100%;
+    padding:14px;
+    border-radius:14px;
+    border:1px solid var(--border);
+    background:#020617;
+    color:white;
+    font-size:1rem;
+}
+
+input:focus,
+textarea:focus,
+select:focus{
+    outline:none;
+    border-color:var(--primary);
+}
+
+.search-grid{
+    display:grid;
+    grid-template-columns:2fr 1fr 1fr;
+    gap:12px;
+    margin-bottom:18px;
+}
+
+.table-wrapper{
+    overflow:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th,td{
+    padding:15px;
+    border-bottom:1px solid var(--border);
+    text-align:left;
+    vertical-align:top;
+}
+
+th{
+    background:#020617;
+    color:#cbd5e1;
+}
+
+.badge{
+    display:inline-block;
+    padding:7px 12px;
+    border-radius:999px;
+    font-size:.8rem;
+    font-weight:700;
+}
+
+.badge-income{
+    background:#14532d;
+    color:#dcfce7;
+}
+
+.badge-expense{
+    background:#7f1d1d;
+    color:#fee2e2;
+}
+
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.75);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:999;
+    padding:20px;
+}
+
+.modal-content{
+    background:#111827;
+    border-radius:26px;
+    width:100%;
+    max-width:850px;
+    padding:24px;
+}
+
+.receipt-box{
+    background:#020617;
+    border:1px solid var(--border);
+    border-radius:18px;
+    padding:20px;
+    white-space:pre-wrap;
+    line-height:1.8;
+    max-height:60vh;
+    overflow:auto;
+}
+
+.actions{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+.footer-note{
+    margin-top:12px;
+    color:var(--muted);
+    font-size:.9rem;
+}
+
+@media(max-width:900px){
+
+    body{
+        padding:14px;
+    }
+
+    .search-grid{
+        grid-template-columns:1fr;
+    }
+
+    h1{
+        font-size:1.7rem;
+    }
+
+    th,td{
+        font-size:.9rem;
+        padding:10px;
+    }
+}
+</style>
 </head>
 <body>
-  <header class="site-header">
-    <div class="brand">
-      <svg class="brand-mark" width="36" height="36" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#ef4444"/><stop offset="1" stop-color="#ff7b7b"/></linearGradient></defs><rect width="24" height="24" rx="6" fill="url(#g)"/><text x="12" y="16" font-size="10" font-weight="700" text-anchor="middle" fill="#071827">RT</text></svg>
-      <div class="brand-text"><span class="brand-strong">Recover</span>Together</div>
+
+<div class="container">
+
+<div class="header">
+    <h1>Ewidencja Działalności Nierejestrowanej PRO</h1>
+
+    <div class="toolbar">
+        <button class="btn-primary" onclick="exportExcel()">Eksport Excel</button>
+        <button class="btn-secondary" onclick="exportPDF()">Eksport PDF</button>
+        <button class="btn-success" onclick="backupJSON()">Eksport danych</button>
+
+        <label class="btn-secondary" style="display:flex;align-items:center;gap:8px;cursor:pointer;">
+            Import danych
+            <input type="file" accept="application/json" onchange="importJSON(event)" hidden>
+        </label>
+    </div>
+</div>
+
+<div class="stats">
+
+    <div class="stat">
+        <h3>Przychód kwartalny</h3>
+        <p id="quarterIncome">0 zł</p>
     </div>
 
-    <nav class="nav" aria-label="Main">
-      <a href="index.html" class="nav-link active">Home</a>
-      <a href="resources.html" class="nav-link">Resources</a>
-      <a href="journal.html" class="nav-link">Journal</a>
-      <a href="about.html" class="nav-link">About</a>
-      <a href="settings.html" class="nav-link">Settings</a>
-    </nav>
-
-    <div class="header-actions">
-      <button id="donateBtn" class="btn btn-primary">Donate</button>
-      <button id="themeToggle" class="icon-btn" title="Toggle theme">🌙</button>
+    <div class="stat">
+        <h3>Koszty</h3>
+        <p id="expensesTotal">0 zł</p>
     </div>
-  </header>
 
-  <main class="container">
-    <section class="hero card">
-      <div class="hero-left">
-        <h1>Small steps. Big change.</h1>
-        <p class="lead">Tools, tracking, and private-first options to help you overcome porn dependency. Lightweight, responsive, and beautiful.</p>
-        <div class="hero-actions">
-          <a href="journal.html" class="btn">Open Journal</a>
-          <a href="resources.html" class="btn btn-outline">Find Help</a>
-        </div>
-      </div>
-      <div class="hero-right">
-        <div class="quote-card card-compact" id="quoteCard">
-          <svg class="quote-ico" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7.17 6A4.17 4.17 0 0 0 3 10.17v2.66A4.17 4.17 0 0 0 7.17 17h.66A4.17 4.17 0 0 0 12 12.83V10.17A4.17 4.17 0 0 0 7.83 6h-.66zM17.17 6A4.17 4.17 0 0 0 13 10.17v2.66A4.17 4.17 0 0 0 17.17 17h.66A4.17 4.17 0 0 0 22 12.83V10.17A4.17 4.17 0 0 0 17.83 6h-.66z"/></svg>
-          <div id="quote">Loading daily quote…</div>
-          <div class="quote-actions">
-            <button id="newQuote" class="btn btn-sm">New</button>
-            <button id="copyQuote" class="btn btn-sm btn-outline">Copy</button>
-          </div>
-        </div>
-
-        <div class="timer-card card-compact" aria-live="polite">
-          <div class="timer-label">Abstinence timer</div>
-          <div id="timer" class="timer">Not set</div>
-          <div class="timer-controls">
-            <input type="datetime-local" id="startDate" class="input-dt">
-            <button id="setStart" class="btn btn-sm">Set</button>
-            <button id="clearStart" class="btn btn-sm btn-outline">Clear</button>
-          </div>
-          <div id="milestones" class="muted small"></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="grid">
-      <article class="card">
-        <h2>Progress</h2>
-        <div id="recentLogs" class="muted">No journal entries yet.</div>
-        <div class="small muted">Entries are stored locally in your browser.</div>
-      </article>
-
-      <article class="card">
-        <h2>Tips for urges</h2>
-        <ul class="tips">
-          <li>Delay urges — set a 5-minute timer and choose an alternative activity.</li>
-          <li>Use blockers, remove easy access to triggers, and change environment.</li>
-          <li>Contact an accountability partner or use a support forum.</li>
-        </ul>
-      </article>
-
-      <article class="card">
-        <h2>Support the project</h2>
-        <p class="muted">Prefer a safe donation method — avoid exposing raw bank details publicly.</p>
-        <div class="donate-row">
-          <a id="paypalLink" class="btn btn-primary" href="#" target="_blank">PayPal</a>
-          <a id="kofiLink" class="btn" href="#" target="_blank">Ko-fi</a>
-          <button id="showIban" class="btn btn-outline">Show IBAN</button>
-        </div>
-        <div id="ibanArea" class="iban muted">No IBAN set</div>
-      </article>
-    </section>
-
-  </main>
-
-  <footer class="site-footer">
-    <div>Built local-first • Private by design</div>
-    <div class="small muted">This is a production-ready static build — optimized CSS, SVG icons, animations, and modular JS.</div>
-  </footer>
-
-  <div id="donationModal" class="modal" aria-hidden="true">
-    <div class="modal-content card">
-      <button class="modal-close" id="closeModal" aria-label="Close">✕</button>
-      <h3>Support the creator</h3>
-      <p class="muted">Choose a safer donation method instead of posting IBAN publicly.</p>
-      <div class="donation-buttons">
-        <a id="paypalBtn" class="btn btn-primary" href="#" target="_blank">Donate with PayPal</a>
-        <a id="kofiBtn" class="btn" href="#" target="_blank">Buy me a coffee</a>
-      </div>
-      <div style="margin-top:12px">
-        <label>Or paste IBAN (stored locally):</label>
-        <input id="ibanInput" placeholder="GB29 NWBK 6016 1331 9268 19">
-        <div style="display:flex;gap:8px;margin-top:8px">
-          <button id="saveIban" class="btn">Save IBAN</button>
-          <button id="copyIban" class="btn btn-outline">Copy IBAN</button>
-        </div>
-      </div>
+    <div class="stat">
+        <h3>Zysk</h3>
+        <p id="profitTotal">0 zł</p>
     </div>
-  </div>
 
-  <script src="js/app.min.js"></script>
+    <div class="stat">
+        <h3>Pozostało do limitu</h3>
+        <p id="remainingLimit">0 zł</p>
+    </div>
+
+</div>
+
+<div class="grid">
+
+<div class="card">
+
+<h2 style="margin-bottom:20px;">Dodaj transakcję</h2>
+
+<form id="transactionForm">
+
+<div>
+<label>Rodzaj</label>
+<select id="type">
+<option value="income">Przychód</option>
+<option value="expense">Koszt</option>
+</select>
+</div>
+
+<div>
+<label>Data</label>
+<input type="date" id="date" required>
+</div>
+
+<div>
+<label>Nazwa towaru / usługi</label>
+<input type="text" id="description" required>
+</div>
+
+<div>
+<label>Kwota brutto</label>
+<input type="number" id="amount" step="0.01" min="0" required>
+</div>
+
+<div id="buyerSection">
+<label>Dane kupującego</label>
+<textarea id="buyer" rows="4"></textarea>
+</div>
+
+<button type="submit" class="btn-primary">Dodaj wpis</button>
+
+</form>
+
+</div>
+
+<div class="card">
+
+<h2 style="margin-bottom:20px;">Dane sprzedawcy</h2>
+
+<form id="profileForm">
+
+<div>
+<label>Imię i nazwisko</label>
+<input type="text" id="sellerName">
+</div>
+
+<div>
+<label>Adres</label>
+<textarea id="sellerAddress" rows="5"></textarea>
+</div>
+
+<button type="submit" class="btn-success">Zapisz dane</button>
+
+</form>
+
+<div class="footer-note">
+Dane zostaną automatycznie użyte podczas generowania rachunków PDF.
+</div>
+
+</div>
+
+</div>
+
+<div class="card">
+<h2 style="margin-bottom:20px;">Wykres przychodów</h2>
+<canvas id="incomeChart" height="90"></canvas>
+</div>
+
+<div class="card">
+
+<h2 style="margin-bottom:20px;">Historia transakcji</h2>
+
+<div class="search-grid">
+<input type="text" id="searchInput" placeholder="Szukaj po opisie lub kupującym...">
+<input type="month" id="monthFilter">
+<select id="typeFilter">
+<option value="all">Wszystkie</option>
+<option value="income">Przychody</option>
+<option value="expense">Koszty</option>
+</select>
+</div>
+
+<div class="table-wrapper">
+<table>
+<thead>
+<tr>
+<th>Typ</th>
+<th>Nr dokumentu</th>
+<th>Data</th>
+<th>Opis</th>
+<th>Kwota</th>
+<th>Kupujący</th>
+<th>Akcje</th>
+</tr>
+</thead>
+<tbody id="transactionsTable"></tbody>
+</table>
+</div>
+
+</div>
+
+</div>
+
+<div class="modal" id="receiptModal">
+<div class="modal-content">
+
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+<h2>Rachunek bez VAT</h2>
+<button class="btn-danger" onclick="closeModal()">✕</button>
+</div>
+
+<div class="receipt-box" id="receiptText"></div>
+
+<div class="toolbar" style="margin-top:20px;">
+<button class="btn-primary" onclick="downloadReceiptPDF()">Pobierz PDF</button>
+<button class="btn-secondary" onclick="copyReceipt()">Kopiuj</button>
+<button class="btn-success" onclick="window.print()">Drukuj</button>
+</div>
+
+</div>
+</div>
+
+<script>
+
+const STORAGE_KEY = 'dn_transactions_pro';
+const PROFILE_KEY = 'dn_profile_pro';
+const LIMIT = 10813.50;
+
+let transactions = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+
+let profile = JSON.parse(localStorage.getItem(PROFILE_KEY)) || {
+    sellerName:'',
+    sellerAddress:''
+};
+
+let incomeChart;
+let currentReceipt = '';
+
+const transactionForm = document.getElementById('transactionForm');
+const profileForm = document.getElementById('profileForm');
+const tableBody = document.getElementById('transactionsTable');
+const receiptModal = document.getElementById('receiptModal');
+const receiptText = document.getElementById('receiptText');
+const typeInput = document.getElementById('type');
+const buyerSection = document.getElementById('buyerSection');
+
+init();
+
+function init(){
+
+    document.getElementById('date').valueAsDate = new Date();
+
+    document.getElementById('sellerName').value = profile.sellerName || '';
+    document.getElementById('sellerAddress').value = profile.sellerAddress || '';
+
+    toggleBuyerField();
+    renderTable();
+    updateStats();
+    renderChart();
+}
+
+/* =========================
+EVENTY
+========================= */
+
+typeInput.addEventListener('change',toggleBuyerField);
+
+transactionForm.addEventListener('submit',e=>{
+
+    e.preventDefault();
+
+    const type = document.getElementById('type').value;
+    const date = document.getElementById('date').value;
+    const description = document.getElementById('description').value.trim();
+    const amount = parseFloat(document.getElementById('amount').value);
+    const buyer = document.getElementById('buyer').value.trim();
+
+    const transaction = {
+        id:crypto.randomUUID(),
+        type,
+        date,
+        description,
+        amount,
+        buyer,
+        documentNumber:type==='income'
+            ? generateDocumentNumber(date)
+            : '-'
+    };
+
+    transactions.push(transaction);
+
+    saveTransactions();
+
+    renderTable();
+    updateStats();
+    renderChart();
+
+    transactionForm.reset();
+
+    document.getElementById('date').valueAsDate = new Date();
+
+    toggleBuyerField();
+});
+
+profileForm.addEventListener('submit',e=>{
+
+    e.preventDefault();
+
+    profile = {
+        sellerName:document.getElementById('sellerName').value.trim(),
+        sellerAddress:document.getElementById('sellerAddress').value.trim()
+    };
+
+    localStorage.setItem(PROFILE_KEY,JSON.stringify(profile));
+
+    alert('Dane zapisane.');
+});
+
+['searchInput','monthFilter','typeFilter']
+.forEach(id=>{
+    document.getElementById(id).addEventListener('input',renderTable);
+});
+
+/* =========================
+FUNKCJE
+========================= */
+
+function toggleBuyerField(){
+
+    buyerSection.style.display =
+        typeInput.value === 'income'
+        ? 'block'
+        : 'none';
+}
+
+function saveTransactions(){
+    localStorage.setItem(STORAGE_KEY,JSON.stringify(transactions));
+}
+
+function formatCurrency(value){
+
+    return value.toLocaleString('pl-PL',{
+        style:'currency',
+        currency:'PLN'
+    });
+}
+
+function formatDate(dateStr){
+
+    return new Date(dateStr)
+        .toLocaleDateString('pl-PL');
+}
+
+function escapeHtml(text){
+
+    if(!text) return '';
+
+    return text
+        .replace(/&/g,'&amp;')
+        .replace(/</g,'&lt;')
+        .replace(/>/g,'&gt;')
+        .replace(/"/g,'&quot;')
+        .replace(/'/g,'&#039;');
+}
+
+/* =========================
+NUMERACJA
+========================= */
+
+function generateDocumentNumber(dateStr){
+
+    const date = new Date(dateStr);
+
+    const month = String(date.getMonth()+1)
+        .padStart(2,'0');
+
+    const year = date.getFullYear();
+
+    const sameMonthDocs = transactions.filter(t=>{
+
+        if(t.type !== 'income') return false;
+
+        const td = new Date(t.date);
+
+        return td.getMonth() === date.getMonth()
+            && td.getFullYear() === year;
+    });
+
+    const nextNumber = sameMonthDocs.length + 1;
+
+    return `${nextNumber}/${month}/${year}`;
+}
+
+/* =========================
+RENDER TABELI
+========================= */
+
+function renderTable(){
+
+    const search = document.getElementById('searchInput')
+        .value
+        .toLowerCase();
+
+    const month = document.getElementById('monthFilter').value;
+
+    const typeFilter = document.getElementById('typeFilter').value;
+
+    const filtered = [...transactions]
+    .filter(t=>{
+
+        const matchesSearch =
+            t.description.toLowerCase().includes(search)
+            || (t.buyer || '').toLowerCase().includes(search);
+
+        const matchesMonth = !month || t.date.startsWith(month);
+
+        const matchesType =
+            typeFilter === 'all'
+            || t.type === typeFilter;
+
+        return matchesSearch
+            && matchesMonth
+            && matchesType;
+    })
+    .sort((a,b)=>new Date(b.date)-new Date(a.date));
+
+    tableBody.innerHTML = '';
+
+    if(filtered.length === 0){
+
+        tableBody.innerHTML = `
+        <tr>
+            <td colspan="7" style="text-align:center;color:#94a3b8;">
+                Brak transakcji.
+            </td>
+        </tr>
+        `;
+
+        return;
+    }
+
+    filtered.forEach(t=>{
+
+        const tr = document.createElement('tr');
+
+        tr.innerHTML = `
+        <td>
+            ${t.type==='income'
+            ? '<span class="badge badge-income">Przychód</span>'
+            : '<span class="badge badge-expense">Koszt</span>'}
+        </td>
+
+        <td>${t.documentNumber}</td>
+
+        <td>${formatDate(t.date)}</td>
+
+        <td>${escapeHtml(t.description)}</td>
+
+        <td>
+            ${formatCurrency(t.amount)}
+        </td>
+
+        <td>
+            ${t.buyer ? escapeHtml(t.buyer) : '-'}
+        </td>
+
+        <td>
+            <div class="actions">
+
+            ${t.type==='income'
+            ? `<button class="btn-secondary" onclick="showReceipt('${t.id}')">Rachunek</button>`
+            : ''}
+
+            <button class="btn-danger" onclick="deleteTransaction('${t.id}')">Usuń</button>
+
+            </div>
+        </td>
+        `;
+
+        tableBody.appendChild(tr);
+    });
+}
+
+function deleteTransaction(id){
+
+    if(!confirm('Usunąć transakcję?')) return;
+
+    transactions = transactions.filter(t=>t.id !== id);
+
+    saveTransactions();
+
+    renderTable();
+    updateStats();
+    renderChart();
+}
+
+/* =========================
+STATYSTYKI
+========================= */
+
+function updateStats(){
+
+    const now = new Date();
+
+    const quarter = Math.floor(now.getMonth()/3);
+
+    const quarterStart = new Date(
+        now.getFullYear(),
+        quarter*3,
+        1
+    );
+
+    const quarterEnd = new Date(
+        now.getFullYear(),
+        quarter*3+3,
+        0
+    );
+
+    const quarterIncome = transactions
+    .filter(t=>{
+
+        if(t.type !== 'income') return false;
+
+        const d = new Date(t.date);
+
+        return d >= quarterStart && d <= quarterEnd;
+    })
+    .reduce((sum,t)=>sum+t.amount,0);
+
+    const expenses = transactions
+    .filter(t=>t.type==='expense')
+    .reduce((sum,t)=>sum+t.amount,0);
+
+    const profit = quarterIncome - expenses;
+
+    const remaining = LIMIT - quarterIncome;
+
+    document.getElementById('quarterIncome').textContent =
+        formatCurrency(quarterIncome);
+
+    document.getElementById('expensesTotal').textContent =
+        formatCurrency(expenses);
+
+    document.getElementById('profitTotal').textContent =
+        formatCurrency(profit);
+
+    document.getElementById('remainingLimit').textContent =
+        formatCurrency(remaining > 0 ? remaining : 0);
+}
+
+/* =========================
+WYKRESY
+========================= */
+
+function renderChart(){
+
+    const monthly = {};
+
+    transactions.forEach(t=>{
+
+        if(t.type !== 'income') return;
+
+        const d = new Date(t.date);
+
+        const key = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;
+
+        monthly[key] = (monthly[key] || 0) + t.amount;
+    });
+
+    const labels = Object.keys(monthly).sort();
+
+    const data = labels.map(l=>monthly[l]);
+
+    const ctx = document.getElementById('incomeChart');
+
+    if(incomeChart){
+        incomeChart.destroy();
+    }
+
+    incomeChart = new Chart(ctx,{
+        type:'line',
+        data:{
+            labels,
+            datasets:[{
+                label:'Przychody miesięczne',
+                data,
+                borderWidth:3,
+                tension:.35
+            }]
+        },
+        options:{
+            responsive:true,
+            plugins:{
+                legend:{
+                    labels:{
+                        color:'white'
+                    }
+                }
+            },
+            scales:{
+                x:{
+                    ticks:{
+                        color:'white'
+                    }
+                },
+                y:{
+                    ticks:{
+                        color:'white'
+                    }
+                }
+            }
+        }
+    });
+}
+
+/* =========================
+EXCEL
+========================= */
+
+function exportExcel(){
+
+    const rows = transactions.map(t=>({
+        Typ:t.type === 'income' ? 'Przychód' : 'Koszt',
+        Numer:t.documentNumber,
+        Data:formatDate(t.date),
+        Opis:t.description,
+        Kwota:t.amount,
+        Kupujący:t.buyer
+    }));
+
+    const worksheet = XLSX.utils.json_to_sheet(rows);
+
+    const workbook = XLSX.utils.book_new();
+
+    XLSX.utils.book_append_sheet(
+        workbook,
+        worksheet,
+        'Ewidencja'
+    );
+
+    XLSX.writeFile(workbook,'ewidencja.xlsx');
+}
+
+/* =========================
+PDF
+========================= */
+
+function exportPDF(){
+
+    const { jsPDF } = window.jspdf;
+
+    const doc = new jsPDF();
+
+    doc.setFontSize(18);
+
+    doc.text(
+        'Ewidencja działalności nierejestrowanej',
+        14,
+        20
+    );
+
+    const rows = transactions.map(t=>([
+        t.type === 'income' ? 'Przychód' : 'Koszt',
+        t.documentNumber,
+        formatDate(t.date),
+        t.description,
+        formatCurrency(t.amount)
+    ]));
+
+    doc.autoTable({
+        startY:30,
+        head:[['Typ','Numer','Data','Opis','Kwota']],
+        body:rows
+    });
+
+    doc.save('ewidencja.pdf');
+}
+
+/* =========================
+RACHUNKI
+========================= */
+
+function showReceipt(id){
+
+    const t = transactions.find(x=>x.id===id);
+
+    if(!t) return;
+
+    const receipt = `
+RACHUNEK NR ${t.documentNumber}
+
+Data wystawienia: ${formatDate(t.date)}
+
+SPRZEDAWCA:
+${profile.sellerName || '(uzupełnij dane)'}
+
+${profile.sellerAddress || '(uzupełnij adres)'}
+
+NABYWCA:
+${t.buyer || '(brak danych)'}
+
+PRZEDMIOT SPRZEDAŻY:
+${t.description}
+
+KWOTA DO ZAPŁATY:
+${formatCurrency(t.amount)}
+
+Sprzedaż zwolniona z podatku VAT na podstawie art. 113 ust. 1 i 9 ustawy o VAT.
+
+Działalność nierejestrowana prowadzona zgodnie z art. 5 ustawy Prawo przedsiębiorców.
+    `.trim();
+
+    currentReceipt = receipt;
+
+    receiptText.textContent = receipt;
+
+    receiptModal.style.display = 'flex';
+}
+
+function closeModal(){
+    receiptModal.style.display = 'none';
+}
+
+async function copyReceipt(){
+
+    try{
+
+        await navigator.clipboard.writeText(currentReceipt);
+
+        alert('Skopiowano rachunek.');
+
+    }catch(e){
+
+        alert('Błąd kopiowania.');
+    }
+}
+
+function downloadReceiptPDF(){
+
+    const { jsPDF } = window.jspdf;
+
+    const doc = new jsPDF();
+
+    const lines = currentReceipt.split('\n');
+
+    let y = 20;
+
+    doc.setFontSize(12);
+
+    lines.forEach(line=>{
+
+        doc.text(line,15,y);
+
+        y += 8;
+    });
+
+    doc.save('rachunek.pdf');
+}
+
+/* =========================
+BACKUP JSON
+========================= */
+
+function backupJSON(){
+
+    const exportData = {
+        version:'1.0',
+        exportDate:new Date().toISOString(),
+        profile,
+        transactions
+    };
+
+    const blob = new Blob([
+        JSON.stringify(exportData,null,2)
+    ],{
+        type:'application/json'
+    });
+
+    const a = document.createElement('a');
+
+    a.href = URL.createObjectURL(blob);
+
+    const date = new Date()
+        .toISOString()
+        .split('T')[0];
+
+    a.download = `backup-ewidencja-${date}.json`;
+
+    a.click();
+}
+
+function importJSON(event){
+
+    const file = event.target.files[0];
+
+    if(!file) return;
+
+    const reader = new FileReader();
+
+    reader.onload = function(e){
+
+        try{
+
+            const imported = JSON.parse(e.target.result);
+
+            if(!imported.transactions || !Array.isArray(imported.transactions)){
+                alert('Nieprawidłowy plik backupu.');
+                return;
+            }
+
+            const confirmImport = confirm(
+                'Import danych nadpisze aktualne dane aplikacji. Kontynuować?'
+            );
+
+            if(!confirmImport) return;
+
+            transactions = imported.transactions || [];
+
+            profile = imported.profile || {
+                sellerName:'',
+                sellerAddress:''
+            };
+
+            localStorage.setItem(
+                STORAGE_KEY,
+                JSON.stringify(transactions)
+            );
+
+            localStorage.setItem(
+                PROFILE_KEY,
+                JSON.stringify(profile)
+            );
+
+            document.getElementById('sellerName').value = profile.sellerName || '';
+
+            document.getElementById('sellerAddress').value = profile.sellerAddress || '';
+
+            renderTable();
+            updateStats();
+            renderChart();
+
+            alert('Dane zostały poprawnie zaimportowane.');
+
+        }catch(error){
+
+            alert('Błąd importu pliku JSON.');
+        }
+    };
+
+    reader.readAsText(file);
+}
+
+/* =========================
+MODAL
+========================= */
+
+window.addEventListener('click',e=>{
+
+    if(e.target === receiptModal){
+        closeModal();
+    }
+});
+
+</script>
+
 </body>
 </html>
